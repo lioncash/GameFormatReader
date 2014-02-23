@@ -67,6 +67,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 			BuildFilenames(reader, 1, fileEntries.Count, null, stringTableOffset);
 		}
 
+		// Reads the string table and assigns the correct names to FST entries.
 		private int BuildFilenames(EndianBinaryReader reader, int firstIndex, int lastIndex, string directory, uint stringTableOffset)
 		{
 			int currentIndex = firstIndex;
