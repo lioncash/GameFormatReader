@@ -1,9 +1,10 @@
-﻿using GameFormatReader.Common;
+﻿using System.Text;
+using GameFormatReader.Common;
 
 namespace GameFormatReader.GCWii.Discs.GC
 {
 	/// <summary>
-	/// Represents a disc header for the GameCube.
+	/// Represents a <see cref="DiscHeader"/> for the GameCube.
 	/// Mostly the same as the Wii, except for some minor differences.
 	/// </summary>
 	public sealed class DiscHeaderGC : DiscHeader
@@ -99,10 +100,13 @@ namespace GameFormatReader.GCWii.Discs.GC
 			StreamingBufferSize = reader.ReadByte();
 
 			// Skip unused bytes
-			reader.BaseStream.Position += 18;
+			reader.BaseStream.Position += 12;
 
 			MagicWord = reader.ReadInt32();
-			GameTitle = new string(reader.ReadChars(64));
+
+			// Skip to game title. Read until 0x00 (null char) is hit.
+			reader.BaseStream.Position = 0x20;
+			GameTitle = Encoding.GetEncoding("shift_jis").GetString(reader.ReadBytesUntil(0x00));
 
 			DebugMonitorOffset = reader.ReadUInt32();
 			DebugMonitorLoadAddress = reader.ReadUInt32();

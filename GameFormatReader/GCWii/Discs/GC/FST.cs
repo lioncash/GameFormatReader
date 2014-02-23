@@ -52,7 +52,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 				uint offset = FSTOffset + (i * FSTEntry.EntrySize);
 				reader.BaseStream.Position = offset;
 
-				FSTEntry file   = new FSTEntry();
+				FSTEntry file = new FSTEntry();
 				file.NameOffset = reader.ReadUInt32();
 				file.Offset     = reader.ReadUInt32();
 				file.FileSize   = reader.ReadUInt32();
@@ -77,32 +77,31 @@ namespace GameFormatReader.GCWii.Discs.GC
 				uint tableOffset = stringTableOffset + (entry.NameOffset & 0xFFFFFF);
 				reader.BaseStream.Position = tableOffset;
 
-				byte[] nameBytes = reader.ReadBytes(255);
-				string filename = Encoding.GetEncoding("shift_jit").GetString(nameBytes);
+				// Null char is a terminator in the string table, so read until we hit it.
+				string filename = Encoding.GetEncoding("shift_jis").GetString(reader.ReadBytesUntil(0x00));
 
-				if (fileEntries[currentIndex].IsDirectory)
+				if (entry.IsDirectory)
 				{
 					if (directory != null)
 					{
-						fileEntries[currentIndex].Fullname = string.Format("{0}{1}/", directory, filename);
+						entry.Fullname = string.Format("{0}{1}/", directory, filename);
 					}
 					else
 					{
-						fileEntries[currentIndex].Fullname = string.Format("{0}/", filename);
+						entry.Fullname = string.Format("{0}/", filename);
 					}
 
 					currentIndex = BuildFilenames(reader, currentIndex + 1, (int)entry.FileSize, entry.Fullname, stringTableOffset);
-
 				}
 				else
 				{
 					if (directory != null)
 					{
-						fileEntries[currentIndex].Fullname = string.Format("{0}{1}", directory, filename);
+						entry.Fullname = string.Format("{0}{1}", directory, filename);
 					}
 					else
 					{
-						fileEntries[currentIndex].Fullname = string.Format("{0}", filename);
+						entry.Fullname = string.Format("{0}", filename);
 					}
 				}
 

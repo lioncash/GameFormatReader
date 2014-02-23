@@ -10,6 +10,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 	{
 		#region Private Fields
 
+		private const int ApploaderOffset = 0x2440;
 		private const int HeaderSize = 0x20;
 
 		#endregion
@@ -18,6 +19,8 @@ namespace GameFormatReader.GCWii.Discs.GC
 
 		internal Apploader(EndianBinaryReader reader)
 		{
+			reader.BaseStream.Position = ApploaderOffset;
+
 			Version = new string(reader.ReadChars(10));
 
 			// Skip padding
@@ -28,7 +31,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 			TrailerSize = reader.ReadInt32();
 
 			// Seek back and pull all the data.
-			reader.BaseStream.Position = 0x2440;
+			reader.BaseStream.Position = ApploaderOffset;
 			int apploaderSize = HeaderSize + Size + TrailerSize;
 			Data = reader.ReadBytes(apploaderSize);
 		}

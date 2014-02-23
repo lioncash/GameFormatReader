@@ -8,12 +8,6 @@ namespace GameFormatReader.GCWii.Discs.GC
 	/// </summary>
 	public sealed class DiscGC : Disc
 	{
-		#region Private Fields
-
-		private const int ApploaderOffset = 0x2440;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>
@@ -25,12 +19,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.BigEndian))
 			{
 				Header = new DiscHeaderGC(reader);
-
-				// Skip to the apploader offset.
-				reader.BaseStream.Position = ApploaderOffset;
 				Apploader = new Apploader(reader);
-
-				// FST
 				FileSystemTable = new FST(reader);
 			}
 		}

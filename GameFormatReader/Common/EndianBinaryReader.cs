@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -619,6 +620,67 @@ namespace GameFormatReader.Common
 			BaseStream.Position = origPos;
 
 			return res;
+		}
+
+		#endregion
+
+		#region Read[x]Until Methods
+
+		/// <summary>
+		/// Reads bytes from the underlying <see cref="Stream"/>
+		/// until the given terminating byte is hit.
+		/// </summary>
+		/// <param name="terminator">The terminator to stop reading at.</param>
+		/// <returns>The array of bytes read until the terminator was hit.</returns>
+		public byte[] ReadBytesUntil(byte terminator)
+		{
+			List<byte> bytes = new List<byte>();
+			byte b;
+
+			while ((b = ReadByte()) != terminator)
+			{
+				bytes.Add(b);
+			}
+
+			return bytes.ToArray();
+		}
+
+		/// <summary>
+		/// Reads characters from the underlying <see cref="Stream"/>
+		/// until the given terminating character is hit.
+		/// </summary>
+		/// <param name="terminator">The terminator to stop reading at.</param>
+		/// <returns>The array of characters read until the terminator was hit.</returns>
+		public char[] ReadBytesUntil(char terminator)
+		{
+			List<char> chars = new List<char>();
+			char c;
+
+			while ((c = ReadChar()) != terminator)
+			{
+				chars.Add(c);
+			}
+
+			return chars.ToArray();
+		}
+
+		/// <summary>
+		/// Reads characters from the underlying <see cref="Stream"/>
+		/// until the given terminating character is hit.
+		/// </summary>
+		/// <param name="terminator">The terminator to stop reading at.</param>
+		/// <returns>The string of characters read until the terminator was hit.</returns>
+		public string ReadStringUntil(char terminator)
+		{
+			StringBuilder sb = new StringBuilder();
+			char c;
+
+			while ((c = ReadChar()) != terminator)
+			{
+				sb.Append(c);
+			}
+
+			return sb.ToString();
 		}
 
 		#endregion
