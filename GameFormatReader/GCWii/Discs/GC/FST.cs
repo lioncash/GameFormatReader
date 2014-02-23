@@ -48,7 +48,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 
 			for (uint i = 0; i < root.FileSize; i++)
 			{
-				// Next file = base FST offset + (current file index * byte size of every entry).
+				// Next file = base FST offset + (current file index * byte size of an individual entry).
 				uint offset = FSTOffset + (i * FSTEntry.EntrySize);
 				reader.BaseStream.Position = offset;
 
