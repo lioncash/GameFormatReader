@@ -42,6 +42,7 @@
     <Compile Include="Common\EndianBinaryReader.cs" />
     <Compile Include="Common\Endian.cs" />
     <Compile Include="Common\EndianUtils.cs" />
+    <Compile Include="GCWii\Binaries\GC\BNR.cs" />
     <Compile Include="GCWii\Discs\DiscHeader.cs" />
     <Compile Include="GCWii\Discs\GC\Apploader.cs" />
     <Compile Include="GCWii\Discs\GC\DiscGC.cs" />
@@ -54,6 +55,9 @@
     <Compile Include="GCWii\Discs\Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GCWii\Discs\Disc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GCWii\Binaries\Wii\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
