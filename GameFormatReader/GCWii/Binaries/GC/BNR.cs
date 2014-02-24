@@ -144,39 +144,9 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		// File-based reading
 		private void ReadBNR(string filepath)
 		{
-			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.BigEndian))
-			{
-				// Determine the banner type.
-				string magicWord = new string(reader.ReadChars(4));
-				BannerType = (magicWord == "BNR1") ? BNRType.BNR1 : BNRType.BNR2;
-
-				// Skip padding bytes
-				reader.BaseStream.Position = 0x20;
-
-				Data = reader.ReadBytes(0x1800);
-
-				// Name related data
-				Encoding shiftJis = Encoding.GetEncoding("shift_jis");
-				GameTitle = shiftJis.GetString(reader.ReadBytes(0x20));
-				DeveloperName = shiftJis.GetString(reader.ReadBytes(0x20));
-				FullGameTitle = shiftJis.GetString(reader.ReadBytes(0x40));
-				FullDeveloperName = shiftJis.GetString(reader.ReadBytes(0x40));
-
-				if (BannerType == BNRType.BNR1)
-				{
-					GameDescriptions = new string[1];
-					GameDescriptions[0] = shiftJis.GetString(reader.ReadBytes(0x80));
-				}
-				else if (BannerType == BNRType.BNR2)
-				{
-					GameDescriptions = new string[6];
-
-					for (int i = 0; i < 6; i++)
-					{
-						GameDescriptions[i] = shiftJis.GetString(reader.ReadBytes(0x80));
-					}
-				}
-			}
+			// Same thing as buffer-based reading
+			// only difference is we just start at offset zero.
+			ReadBNR(File.ReadAllBytes(filepath), 0);
 		}
 
 		// Buffer-based reading
