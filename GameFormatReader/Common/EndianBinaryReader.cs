@@ -697,6 +697,5 @@ namespace GameFormatReader.Common
 		#endregion
 
 		#endregion
-
 	}
 }
