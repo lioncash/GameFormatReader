@@ -19,7 +19,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		public BNR(string filepath)
 		{
 			if (filepath == null)
-				throw new ArgumentException("filepath cannot be null", "filepath");
+				throw new ArgumentNullException("filepath", "filepath cannot be null");
 
 			ReadBNR(filepath);
 		}
