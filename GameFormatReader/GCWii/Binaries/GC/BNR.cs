@@ -45,7 +45,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		#region Enums
 
 		/// <summary>
-		/// Type that this banner can be.
+		/// Banner types
 		/// </summary>
 		public enum BNRType
 		{
