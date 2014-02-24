@@ -3,8 +3,6 @@ using System.IO;
 using System.Text;
 using GameFormatReader.Common;
 
-// TODO: BNR2 multi-language reading.
-
 namespace GameFormatReader.GCWii.Binaries.GC
 {
 	/// <summary>
@@ -44,14 +42,34 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 		#endregion
 
+		#region Enums
+
+		/// <summary>
+		/// Type that this banner can be.
+		/// </summary>
+		public enum BNRType
+		{
+			/// <summary>
+			/// Banner type 1 (US/JP games)
+			/// </summary>
+			BNR1,
+
+			/// <summary>
+			/// Banner type 2 (EU games)
+			/// </summary>
+			BNR2,
+		}
+
+		#endregion
+
 		#region Public Properties
 
 		/// <summary>
-		/// Magic word.
+		/// Banner type
 		/// <para>BNR1 for (US/JP)</para>
 		/// <para>BNR2 for EU.</para>
 		/// </summary>
-		public string MagicWord
+		public BNRType BannerType 
 		{
 			get;
 			private set;
@@ -59,7 +77,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 		/// <summary>
 		/// Graphical data stored in the banner.
-		/// Pixel format is RGB5A1.
+		/// Pixel format is RGB5A3.
 		/// </summary>
 		public byte[] Data
 		{
@@ -104,9 +122,16 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		}
 
 		/// <summary>
-		/// Description of the game this banner is for.
+		/// Descriptions of the game that this banner is for.
 		/// </summary>
-		public string GameDescription
+		/// <remarks>
+		/// In BNR1 type banners, this will simply contain one description.
+		/// In BNR2 type banners, this will contain six
+		/// different language versions of the description.
+		/// However, some may simply be the same as the English description,
+		/// it depends on the game for the most part.
+		/// </remarks>
+		public string[] GameDescriptions
 		{
 			get;
 			private set;
@@ -121,7 +146,9 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		{
 			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.BigEndian))
 			{
-				MagicWord = new string(reader.ReadChars(4));
+				// Determine the banner type.
+				string magicWord = new string(reader.ReadChars(4));
+				BannerType = (magicWord == "BNR1") ? BNRType.BNR1 : BNRType.BNR2;
 
 				// Skip padding bytes
 				reader.BaseStream.Position = 0x20;
@@ -134,7 +161,21 @@ namespace GameFormatReader.GCWii.Binaries.GC
 				DeveloperName = shiftJis.GetString(reader.ReadBytes(0x20));
 				FullGameTitle = shiftJis.GetString(reader.ReadBytes(0x40));
 				FullDeveloperName = shiftJis.GetString(reader.ReadBytes(0x40));
-				GameDescription = shiftJis.GetString(reader.ReadBytes(0x80));
+
+				if (BannerType == BNRType.BNR1)
+				{
+					GameDescriptions = new string[1];
+					GameDescriptions[0] = shiftJis.GetString(reader.ReadBytes(0x80));
+				}
+				else if (BannerType == BNRType.BNR2)
+				{
+					GameDescriptions = new string[6];
+
+					for (int i = 0; i < 6; i++)
+					{
+						GameDescriptions[i] = shiftJis.GetString(reader.ReadBytes(0x80));
+					}
+				}
 			}
 		}
 
@@ -145,7 +186,8 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 			using (EndianBinaryReader reader = new EndianBinaryReader(ms, Endian.BigEndian))
 			{
-				MagicWord = new string(reader.ReadChars(4));
+				string magicWord = new string(reader.ReadChars(4));
+				BannerType = (magicWord == "BNR1") ? BNRType.BNR1 : BNRType.BNR2;
 
 				// Skip padding bytes
 				reader.BaseStream.Position = 0x20;
@@ -158,7 +200,21 @@ namespace GameFormatReader.GCWii.Binaries.GC
 				DeveloperName = shiftJis.GetString(reader.ReadBytes(0x20));
 				FullGameTitle = shiftJis.GetString(reader.ReadBytes(0x40));
 				FullDeveloperName = shiftJis.GetString(reader.ReadBytes(0x40));
-				GameDescription = shiftJis.GetString(reader.ReadBytes(0x80));
+
+				if (BannerType == BNRType.BNR1)
+				{
+					GameDescriptions = new string[1];
+					GameDescriptions[0] = shiftJis.GetString(reader.ReadBytes(0x80));
+				}
+				else if (BannerType == BNRType.BNR2)
+				{
+					GameDescriptions = new string[6];
+
+					for (int i = 0; i < 6; i++)
+					{
+						GameDescriptions[i] = shiftJis.GetString(reader.ReadBytes(0x80));
+					}
+				}
 			}
 		}
 
