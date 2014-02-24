@@ -75,15 +75,6 @@ namespace GameFormatReader.GCWii.Discs.GC
 			private set;
 		}
 
-		/// <summary>
-		/// Apploader information.
-		/// </summary>
-		public Apploader AppLoader
-		{
-			get;
-			private set;
-		}
-
 		#endregion
 
 		#region Private Methods

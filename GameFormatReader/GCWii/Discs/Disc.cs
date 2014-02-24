@@ -16,7 +16,7 @@ namespace GameFormatReader.GCWii.Discs
 		protected Disc(string filepath)
 		{
 			if (filepath == null)
-				throw new ArgumentException("filepath cannot be null", "filepath");
+				throw new ArgumentNullException("filepath", "filepath cannot be null");
 		}
 
 		#endregion
