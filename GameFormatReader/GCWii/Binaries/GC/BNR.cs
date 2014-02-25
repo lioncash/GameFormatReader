@@ -32,7 +32,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		public BNR(byte[] data, int offset)
 		{
 			if (data == null)
-				throw new ArgumentException("data cannot be null", "data");
+				throw new ArgumentNullException("data", "data cannot be null");
 
 			if (offset < 0)
 				throw new ArgumentException("offset cannot be a negative number", "offset");
