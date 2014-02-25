@@ -33,17 +33,12 @@ namespace GameFormatReader.GCWii.Discs.Wii
 			// Skip unused bytes
 			reader.BaseStream.Position += 14;
 
-			// Now we read the magic word to determine which system.
 			MagicWord = reader.ReadInt32();
 
 			// Skip the other 4 bytes, since this is a Wii header, not a GameCube one.
 			reader.BaseStream.Position += 4;
 
 			GameTitle = new string(reader.ReadChars(64));
-
-			// This is all the relevant information, so we can skip to the end of the header.
-			// (or, the beginning of the Partition information).
-			reader.BaseStream.Position = 0x40000;
 		}
 
 		#endregion

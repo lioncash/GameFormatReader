@@ -21,6 +21,11 @@ namespace GameFormatReader.GCWii.Discs.Wii
 			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.BigEndian))
 			{
 				Header = new DiscHeaderWii(reader);
+
+				// Skip to the partiton data offset.
+				reader.BaseStream.Position = 0x40000;
+
+				// TODO: Read the rest of the disc.
 			}
 		}
 
