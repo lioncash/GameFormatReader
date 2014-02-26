@@ -685,6 +685,26 @@ namespace GameFormatReader.Common
 
 		#endregion
 
+		#region Skip Methods
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/> ahead by
+		/// count bytes from its current position.
+		/// </summary>
+		/// <param name="count">The number of bytes to skip.</param>
+		public void Skip(long count)
+		{
+			if (count >= BaseStream.Length)
+				throw new ArgumentException("count cannot be larger than the length of the underlying stream.", "count");
+
+			if ((BaseStream.Position + count) >= BaseStream.Length)
+				throw new ArgumentException("Skipping " + count + " bytes would exceed the underlying stream's length.");
+
+			BaseStream.Position += count;
+		}
+
+		#endregion
+
 		#region ToString
 
 		public override string ToString()
