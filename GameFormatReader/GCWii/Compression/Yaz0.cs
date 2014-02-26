@@ -2,7 +2,7 @@
 using System.IO;
 using GameFormatReader.Common;
 
-namespace GameFormatReader.GCWii.Binaries
+namespace GameFormatReader.GCWii.Compression
 {
 	/// <summary>
 	/// Class for decoding the Yaz0 compression format.
