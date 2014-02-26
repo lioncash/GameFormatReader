@@ -44,6 +44,7 @@
     <Compile Include="Common\EndianUtils.cs" />
     <Compile Include="GCWii\Binaries\GC\BNR.cs" />
     <Compile Include="GCWii\Binaries\GC\DOL.cs" />
+    <Compile Include="GCWii\Binaries\Yaz0.cs" />
     <Compile Include="GCWii\Discs\DiscHeader.cs" />
     <Compile Include="GCWii\Discs\GC\Apploader.cs" />
     <Compile Include="GCWii\Discs\GC\DiscGC.cs" />
