@@ -82,5 +82,36 @@ namespace GameFormatReader.GCWii.Binaries
 				return output;
 			}
 		}
+
+		/// <summary>
+		/// Checkes if a given file is Yaz0-compressed.
+		/// </summary>
+		/// <param name="filePath">Path to the file to check.</param>
+		/// <returns>true if the file is Yaz0-compressed; false otherwise.</returns>
+		public static bool IsYaz0Compressed(string filePath)
+		{
+			if (filePath == null)
+				throw new ArgumentNullException("filePath", "file cannot be null");
+
+			if (filePath == string.Empty)
+				throw new ArgumentException("Empty filepaths are not valid", "filePath");
+
+			if (!File.Exists(filePath))
+				throw new ArgumentException("file specificed by filePath does not exist", "filePath");
+
+			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+			{
+				byte[] magic = new byte[4];
+				fs.Read(magic, 0, 4);
+
+				if (magic[0] != 'Y' &&
+				    magic[1] != 'a' &&
+				    magic[2] != 'z' &&
+				    magic[3] != '0')
+					return false;
+			}
+
+			return true;
+		}
 	}
 }
