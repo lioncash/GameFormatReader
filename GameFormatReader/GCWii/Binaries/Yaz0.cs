@@ -93,9 +93,6 @@ namespace GameFormatReader.GCWii.Binaries
 			if (filePath == null)
 				throw new ArgumentNullException("filePath", "file cannot be null");
 
-			if (filePath == string.Empty)
-				throw new ArgumentException("Empty filepaths are not valid", "filePath");
-
 			if (!File.Exists(filePath))
 				throw new ArgumentException("File specified by filePath does not exist", "filePath");
 
