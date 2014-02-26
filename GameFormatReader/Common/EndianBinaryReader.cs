@@ -689,7 +689,7 @@ namespace GameFormatReader.Common
 
 		// While some of these may be equivalents, depending on what is being read
 		// (ie. a file format structure), it may be more readable to use one or the other.
-		// eg. it may be more readable to say an unsigned int is being skipped than just a signed int.
+		// eg. it may be more readable to say an unsigned int is being skipped than a signed int.
 
 
 		/// <summary>
