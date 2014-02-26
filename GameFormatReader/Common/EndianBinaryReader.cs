@@ -685,7 +685,12 @@ namespace GameFormatReader.Common
 
 		#endregion
 
-		#region Skip Methods
+		#region Skip[x] Methods
+
+		// While some of these may be equivalents, depending on what is being read
+		// (ie. a file format structure), it may be more readable to use one or the other.
+		// eg. it may be more readable to say an unsigned int is being skipped than just a signed int.
+
 
 		/// <summary>
 		/// Skips the underlying <see cref="Stream"/> ahead by
@@ -701,6 +706,105 @@ namespace GameFormatReader.Common
 				throw new ArgumentException("Skipping " + count + " bytes would exceed the underlying stream's length.");
 
 			BaseStream.Position += count;
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of an unsigned byte.
+		/// </summary>
+		public void SkipByte()
+		{
+			Skip(sizeof(Byte));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a signed byte.
+		/// </summary>
+		public void SkipSByte()
+		{
+			Skip(sizeof(SByte));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a signed 16-bit integer.
+		/// </summary>
+		public void SkipInt16()
+		{
+			Skip(sizeof(Int16));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of an unsigned 16-bit integer.
+		/// </summary>
+		public void SkipUInt16()
+		{
+			Skip(sizeof(UInt16));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a signed 32-bit integer.
+		/// </summary>
+		public void SkipInt32()
+		{
+			Skip(sizeof(Int32));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of an unsigned 32-bit integer.
+		/// </summary>
+		public void SkipUInt32()
+		{
+			Skip(sizeof(UInt32));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a signed 64-bit integer.
+		/// </summary>
+		public void SkipInt64()
+		{
+			Skip(sizeof(Int64));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of an unsigned 64-bit integer.
+		/// </summary>
+		public void SkipUInt64()
+		{
+			Skip(sizeof(UInt64));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a 32-bit floating-point number.
+		/// </summary>
+		public void SkipSingle()
+		{
+			Skip(sizeof(Single));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a 64-bit floating-point number.
+		/// </summary>
+		public void SkipDouble()
+		{
+			Skip(sizeof(Double));
+		}
+
+		/// <summary>
+		/// Skips the underlying <see cref="Stream"/>
+		/// ahead by the size of a 128-bit floating-point number.
+		/// </summary>
+		public void SkipDecimal()
+		{
+			Skip(sizeof(Decimal));
 		}
 
 		#endregion
