@@ -154,7 +154,7 @@ namespace GameFormatReader.Common
 
 		#endregion
 
-		#region PeekRead Methods
+		#region PeekRead[x] Methods
 
 		/// <summary>
 		/// Reads a signed byte relative to the current position
@@ -165,7 +165,7 @@ namespace GameFormatReader.Common
 		{
 			sbyte res = ReadSByte();
 
-			BaseStream.Position -= 1;
+			BaseStream.Position -= sizeof(SByte);
 
 			return res;
 		}
@@ -179,7 +179,7 @@ namespace GameFormatReader.Common
 		{
 			byte res = ReadByte();
 
-			BaseStream.Position -= 1;
+			BaseStream.Position -= sizeof(Byte);
 
 			return res;
 		}
@@ -193,7 +193,7 @@ namespace GameFormatReader.Common
 		{
 			short res = ReadInt16();
 
-			BaseStream.Position -= 2;
+			BaseStream.Position -= sizeof(Int16);
 
 			return res;
 		}
@@ -207,7 +207,7 @@ namespace GameFormatReader.Common
 		{
 			ushort res = ReadUInt16();
 
-			BaseStream.Position -= 2;
+			BaseStream.Position -= sizeof(UInt16);
 
 			return res;
 		}
@@ -221,7 +221,7 @@ namespace GameFormatReader.Common
 		{
 			int res = ReadInt32();
 
-			BaseStream.Position -= 4;
+			BaseStream.Position -= sizeof(Int32);
 
 			return res;
 		}
@@ -235,7 +235,7 @@ namespace GameFormatReader.Common
 		{
 			uint res = ReadUInt32();
 
-			BaseStream.Position -= 4;
+			BaseStream.Position -= sizeof(UInt32);
 
 			return res;
 		}
@@ -249,7 +249,7 @@ namespace GameFormatReader.Common
 		{
 			long res = ReadInt64();
 
-			BaseStream.Position -= 8;
+			BaseStream.Position -= sizeof(Int64);
 
 			return res;
 		}
@@ -263,7 +263,7 @@ namespace GameFormatReader.Common
 		{
 			ulong res = ReadUInt64();
 
-			BaseStream.Position -= 8;
+			BaseStream.Position -= sizeof(UInt64);
 
 			return res;
 		}
