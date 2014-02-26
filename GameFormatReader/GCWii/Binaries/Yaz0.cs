@@ -97,7 +97,7 @@ namespace GameFormatReader.GCWii.Binaries
 				throw new ArgumentException("Empty filepaths are not valid", "filePath");
 
 			if (!File.Exists(filePath))
-				throw new ArgumentException("file specificed by filePath does not exist", "filePath");
+				throw new ArgumentException("File specified by filePath does not exist", "filePath");
 
 			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
 			{
