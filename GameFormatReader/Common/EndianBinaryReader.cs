@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-// TODO: ReadSingle, ReadDouble, and ReadDecimal method equivalents.
-// How do you even go about flipping the endianness on these?
+// TODO: ReadDecimal method equivalent.
+// How do you even go about flipping the endianness on this type?
 
 namespace GameFormatReader.Common
 {
@@ -152,6 +152,44 @@ namespace GameFormatReader.Common
 			}
 		}
 
+		public override float ReadSingle()
+		{
+			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
+			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			{
+				return base.ReadSingle();
+			}
+			else // BE to LE or LE to BE
+			{
+				float temp = base.ReadSingle();
+
+				// TODO: Is there a better way?
+				byte[] floatBytes = BitConverter.GetBytes(temp);
+				Array.Reverse(floatBytes);
+
+				return BitConverter.ToSingle(floatBytes, 0);
+			}
+		}
+
+		public override double ReadDouble()
+		{
+			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
+			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			{
+				return base.ReadDouble();
+			}
+			else // BE to LE or LE to BE
+			{
+				double temp = base.ReadDouble();
+
+				// TODO: Is there a better way?
+				byte[] doubleBytes = BitConverter.GetBytes(temp);
+				Array.Reverse(doubleBytes);
+
+				return BitConverter.ToDouble(doubleBytes, 0);
+			}
+		}
+
 		#endregion
 
 		#region PeekRead[x] Methods
@@ -264,6 +302,34 @@ namespace GameFormatReader.Common
 			ulong res = ReadUInt64();
 
 			BaseStream.Position -= sizeof(UInt64);
+
+			return res;
+		}
+
+		/// <summary>
+		/// Reads a 32-bit floating-point number relative to the current position
+		/// in the underlying  <see cref="Stream"/> without advancing position.
+		/// </summary>
+		/// <returns>the 32-bit floating-point number that was read.</returns>
+		public float PeekReadSingle()
+		{
+			float res = ReadSingle();
+
+			BaseStream.Position -= sizeof(Single);
+
+			return res;
+		}
+
+		/// <summary>
+		/// Reads a 64-bit floating-point number relative to the current position
+		/// in the underlying  <see cref="Stream"/> without advancing position.
+		/// </summary>
+		/// <returns>the 64-bit floating-point number that was read.</returns>
+		public double PeekReadDouble()
+		{
+			double res = ReadDouble();
+
+			BaseStream.Position -= sizeof(Double);
 
 			return res;
 		}
