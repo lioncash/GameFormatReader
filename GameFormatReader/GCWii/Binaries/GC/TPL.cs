@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using GameFormatReader.Common;
 
@@ -8,7 +10,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 	/// Represents a custom format that stores
 	/// texture and pallet information.
 	/// </summary>
-	public sealed class TPL
+	public sealed class TPL : IEnumerable<TPL.Texture>
 	{
 		#region Private Fields
 
@@ -156,7 +158,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		}
 
 		#endregion
-
+			
 		#region Properties
 
 		/// <summary>
@@ -277,6 +279,30 @@ namespace GameFormatReader.GCWii.Binaries.GC
 			}
 
 			return size;
+		}
+
+		#endregion
+
+		#region Interface Methods and Properties
+
+		/// <summary>
+		/// Retrieves the <see cref="TPL.Texture"/> specified by the given index.
+		/// </summary>
+		/// <param name="index">The index to get the <see cref="TPL.Texture"/> at.</param>
+		/// <returns>The <see cref="TPL.Texture"/> at the given index.</returns>
+		public Texture this[int index]
+		{
+			get { return Textures[index]; }
+		}
+
+		public IEnumerator<Texture> GetEnumerator()
+		{
+			return ((IEnumerable<Texture>)Textures).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion
