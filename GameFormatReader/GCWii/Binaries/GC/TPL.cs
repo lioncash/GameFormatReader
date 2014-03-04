@@ -141,7 +141,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		/// <summary>
 		/// Represents an embedded palette
 		/// </summary>
-		public class Palette
+		public sealed class Palette
 		{
 			/// <summary>Number of palettes</summary>
 			public short NumItems { get; internal set; }
