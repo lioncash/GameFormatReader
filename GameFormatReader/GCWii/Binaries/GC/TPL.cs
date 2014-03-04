@@ -158,7 +158,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		}
 
 		#endregion
-			
+
 		#region Properties
 
 		/// <summary>
@@ -199,8 +199,6 @@ namespace GameFormatReader.GCWii.Binaries.GC
 			{
 				int textureOffset = reader.ReadInt32();
 				int paletteOffset = reader.ReadInt32();
-
-				
 
 				Textures[i]           = new Texture();
 				Textures[i].Height    = reader.ReadInt16At(textureOffset + 0x00);
