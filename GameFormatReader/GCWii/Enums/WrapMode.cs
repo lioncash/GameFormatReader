@@ -6,7 +6,7 @@
 	public enum WrapMode
 	{
 		/// <summary>
-		/// The coordinate will simply be clamped between 0 and 1
+		/// The coordinate will simply be clamped between 0 and 1.
 		/// </summary>
 		Clamp  = 0,
 
