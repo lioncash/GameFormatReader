@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using GameFormatReader.Common;
+using GameFormatReader.GCWii.Enums;
 
 namespace GameFormatReader.GCWii.Binaries.GC
 {
@@ -41,68 +42,6 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 		#endregion
 
-		#region Enums
-
-		/// <summary>
-		/// Defines the possible texture formats
-		/// for an embedded texture.
-		/// </summary>
-		public enum TextureFormat
-		{
-			/// <summary>4-bit intensity, 8x8 tiles</summary>
-			I4     = 0,
-			/// <summary>8-bit intensity, 8x4 tiles</summary>
-			I8     = 1,
-			/// <summary>4-bit intensity with 4-bit alpha, 8x4 tiles</summary>
-			IA4    = 2,
-			/// <summary>8-bit intensity with 8-bit alpha, 8x8 tiles</summary>
-			IA8    = 3,
-			/// <summary>4x4 tiles</summary>
-			RGB565 = 4,
-			/// <summary>4x4 tiles - is RGB5 if color value is negative and RGB4A3 otherwise.</summary>
-			RGB5A3 = 5,
-			/// <summary>4x4 tiles in two cache lines - first is AR and second is GB</summary>
-			RGBA8  = 6,
-			/// <summary>4-bit color index, 8x8 tiles</summary>
-			CI4    = 8,
-			/// <summary>8-bit color index, 8x4 tiles</summary>
-			CI8    = 9,
-			/// <summary>14-bit color index, 4x4 tiles</summary>
-			CI14X2 = 10,
-			/// <summary>S3TC compressed, 2x2 blocks of 4x4 tiles</summary>
-			CMP    = 14,
-		}
-
-		/// <summary>
-		/// Defines the possible palette formats
-		/// for an embedded palette.
-		/// </summary>
-		public enum PalFormat
-		{
-			/// <summary>8-bit intensity with 8-bit alpha, 8x8 tiles</summary>
-			IA8    = 0,
-			/// <summary>4x4 tiles</summary>
-			RGB565 = 1,
-			/// <summary>4x4 tiles - is RGB5 if color value is negative and RGB4A3 otherwise.</summary>
-			RGB5A3 = 2,
-		}
-
-		/// <summary>
-		/// The type of wrapping being applied to the
-		/// horizontal and vertical axes of the texture
-		/// </summary>
-		public enum WrapMode
-		{
-			/// <summary>The last pixel of the texture image stretches outwards indefinitely.</summary>
-			Clamp  = 0,
-			/// <summary>The texture image repeats indefinitely.</summary>
-			Repeat = 1,
-			/// <summary>The texture image is mirrored indefinitely</summary>
-			Mirror = 2,
-		}
-
-		#endregion
-
 		#region Structs
 
 		/// <summary>
@@ -122,10 +61,10 @@ namespace GameFormatReader.GCWii.Binaries.GC
 			public WrapMode WrapS { get; internal set; }
 			/// <summary>Vertical wrapping mode</summary>
 			public WrapMode WrapT { get; internal set; }
-			/// <summary>Minimization filter (TODO: Does this correspond to specific values (if it does, it indicates enum vals))</summary>
-			public int MinFilter { get; internal set; }
-			/// <summary>Magnification filter (TODO: Does this correspond to specific values (if it does, it indicates enum vals))</summary>
-			public int MagFilter { get; internal set; }
+			/// <summary>Minimization filter</summary>
+			public TextureFilter MinFilter { get; internal set; }
+			/// <summary>Magnification filter</summary>
+			public TextureFilter MagFilter { get; internal set; }
 			/// <summary>LOD (Level of Detail) bias.</summary>
 			public float LODBias { get; internal set; }
 			/// <summary>Edge level of detail</summary>
@@ -152,7 +91,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 			/// <summary>Indicates padding? Truthfully, I don't know</summary>
 			public byte Padding { get; internal set; }
 			/// <summary>Palette format</summary>
-			public PalFormat PaletteFormat { get; internal set; }
+			public TLUTFormat PaletteFormat { get; internal set; }
 			/// <summary>Palette data</summary>
 			public byte[] Data { get; internal set; }
 		}
@@ -211,8 +150,8 @@ namespace GameFormatReader.GCWii.Binaries.GC
 				Textures[i].WrapS = (WrapMode) reader.ReadInt32At(textureOffset + 0x0C);
 				Textures[i].WrapT = (WrapMode) reader.ReadInt32At(textureOffset + 0x10);
 
-				Textures[i].MinFilter  = reader.ReadInt32At(textureOffset  + 0x14);
-				Textures[i].MagFilter  = reader.ReadInt32At(textureOffset  + 0x18);
+				Textures[i].MinFilter  = (TextureFilter) reader.ReadInt32At(textureOffset + 0x14);
+				Textures[i].MagFilter  = (TextureFilter) reader.ReadInt32At(textureOffset + 0x18);
 				Textures[i].LODBias    = reader.ReadSingleAt(textureOffset + 0x1C);
 				Textures[i].EdgeLOD    = reader.ReadByteAt(textureOffset   + 0x20);
 				Textures[i].MinLOD     = reader.ReadByteAt(textureOffset   + 0x21);
@@ -225,7 +164,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 					Textures[i].Palette.NumItems      = reader.ReadInt16At(paletteOffset + 0x00);
 					Textures[i].Palette.IsUnpacked    = reader.ReadByteAt(paletteOffset  + 0x02);
 					Textures[i].Palette.Padding       = reader.ReadByteAt(paletteOffset  + 0x03);
-					Textures[i].Palette.PaletteFormat = (PalFormat) reader.ReadInt32At(paletteOffset + 0x04);
+					Textures[i].Palette.PaletteFormat = (TLUTFormat) reader.ReadInt32At(paletteOffset + 0x04);
 
 					int dataOffset = reader.ReadInt32At(paletteOffset + 0x08);
 					Textures[i].Palette.Data = reader.ReadBytesAt(dataOffset, Textures[i].Palette.NumItems);

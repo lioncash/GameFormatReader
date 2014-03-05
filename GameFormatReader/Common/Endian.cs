@@ -5,7 +5,9 @@
 	/// </summary>
 	public enum Endian
 	{
+		/// <summary>Little endian</summary>
 		LittleEndian,
+		/// <summary>Big endian</summary>
 		BigEndian,
 	}
 }
