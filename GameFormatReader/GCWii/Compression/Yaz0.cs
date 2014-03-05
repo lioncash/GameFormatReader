@@ -13,6 +13,22 @@ namespace GameFormatReader.GCWii.Compression
 		private const int StartOfData = 0x10;
 
 		/// <summary>
+		/// Decodes a given Yaz0-compressed file.
+		/// </summary>
+		/// <param name="filepath">Path to the Yaz0 compressed file.</param>
+		/// <returns>the decoded data.</returns>
+		public static byte[] Decode(string filepath)
+		{
+			if (filepath == null)
+				throw new ArgumentNullException("filepath", "filepath cannot be null.");
+
+			if (!File.Exists(filepath))
+				throw new IOException("filepath refers to a file which doesn't exist.");
+
+			return Decode(File.ReadAllBytes(filepath));
+		}
+
+		/// <summary>
 		/// Decodes the given source data.
 		/// </summary>
 		/// <remarks>Decoding alg borrowed from YAGCD.</remarks>.
