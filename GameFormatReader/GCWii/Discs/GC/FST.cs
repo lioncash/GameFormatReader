@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using GameFormatReader.Common;
 
@@ -7,7 +9,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 	/// <summary>
 	/// File-system Table. Contains all of the files within a GameCube <see cref="DiscGC"/>.
 	/// </summary>
-	public sealed class FST
+	public sealed class FST : IEnumerable<FSTEntry>
 	{
 		#region Private Fields
 
@@ -110,6 +112,25 @@ namespace GameFormatReader.GCWii.Discs.GC
 			}
 
 			return currentIndex;
+		}
+
+		#endregion
+
+		#region Interface Implementations
+
+		public FSTEntry this[int index]
+		{
+			get { return fileEntries[index]; }
+		}
+
+		public IEnumerator<FSTEntry> GetEnumerator()
+		{
+			return ((IEnumerable<FSTEntry>)fileEntries).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion
