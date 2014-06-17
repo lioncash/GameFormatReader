@@ -19,7 +19,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		// Size of the RARC header in bytes.
 		private const int HeaderSize = 64;
 
-		// Size of an individual file entry in size.
+		// Size of an individual file entry in bytes.
 		private const int FileEntrySize = 20;
 
 		#endregion
