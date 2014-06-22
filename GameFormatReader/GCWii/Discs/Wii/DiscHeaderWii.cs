@@ -39,6 +39,31 @@ namespace GameFormatReader.GCWii.Discs.Wii
 			reader.BaseStream.Position += 4;
 
 			GameTitle = new string(reader.ReadChars(64));
+			IsHashVerificationDisabled = reader.ReadBoolean();
+			IsDiscEncryptionDisabled = reader.ReadBoolean();
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Whether or not hash verification is disabled. Will make all disc reads fail even before they reach the DVD drive.
+		/// </summary>
+		public bool IsHashVerificationDisabled
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// Whether or not disc encryption and h3 hash table loading and verification is disabled.
+		/// (which effectively also makes all disc reads fail because the h2 hashes won't be able to verify against "something" that will be in the memory of the h3 hash table. none of these two bytes will allow unsigned code) 
+		/// </summary>
+		public bool IsDiscEncryptionDisabled
+		{
+			get;
+			private set;
 		}
 
 		#endregion
