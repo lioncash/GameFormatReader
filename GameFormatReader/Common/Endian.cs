@@ -6,8 +6,8 @@
 	public enum Endian
 	{
 		/// <summary>Little endian</summary>
-		LittleEndian,
+		Little,
 		/// <summary>Big endian</summary>
-		BigEndian,
+		Big,
 	}
 }

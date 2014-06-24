@@ -76,8 +76,8 @@ namespace GameFormatReader.Common
 
 		public override short ReadInt16()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian || 
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little || 
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadInt16();
 			}
@@ -89,8 +89,8 @@ namespace GameFormatReader.Common
 
 		public override ushort ReadUInt16()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadUInt16();
 			}
@@ -102,8 +102,8 @@ namespace GameFormatReader.Common
 
 		public override int ReadInt32()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadInt32();
 			}
@@ -115,8 +115,8 @@ namespace GameFormatReader.Common
 
 		public override uint ReadUInt32()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadUInt32();
 			}
@@ -128,8 +128,8 @@ namespace GameFormatReader.Common
 
 		public override long ReadInt64()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadInt64();
 			}
@@ -141,8 +141,8 @@ namespace GameFormatReader.Common
 
 		public override ulong ReadUInt64()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadUInt64();
 			}
@@ -154,8 +154,8 @@ namespace GameFormatReader.Common
 
 		public override float ReadSingle()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadSingle();
 			}
@@ -173,8 +173,8 @@ namespace GameFormatReader.Common
 
 		public override double ReadDouble()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadDouble();
 			}
@@ -879,7 +879,7 @@ namespace GameFormatReader.Common
 
 		public override string ToString()
 		{
-			string endianness = (CurrentEndian == Endian.LittleEndian) ? "Little Endian" : "Big Endian";
+			string endianness = (CurrentEndian == Endian.Little) ? "Little Endian" : "Big Endian";
 
 			return string.Format("EndianBinaryReader - Endianness: {0}", endianness);
 		}

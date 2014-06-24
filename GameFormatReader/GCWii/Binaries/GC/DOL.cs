@@ -118,7 +118,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 		private void ReadDOL(byte[] data, int offset)
 		{
-			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(data), Endian.BigEndian))
+			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
 			{
 				InitializeTextSections(reader);
 				InitializeDataSections(reader);

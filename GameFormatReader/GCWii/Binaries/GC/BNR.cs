@@ -154,7 +154,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		{
 			MemoryStream ms = new MemoryStream(data, offset, data.Length);
 
-			using (EndianBinaryReader reader = new EndianBinaryReader(ms, Endian.BigEndian))
+			using (EndianBinaryReader reader = new EndianBinaryReader(ms, Endian.Big))
 			{
 				string magicWord = new string(reader.ReadChars(4));
 				BannerType = (magicWord == "BNR1") ? BNRType.BNR1 : BNRType.BNR2;

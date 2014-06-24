@@ -35,7 +35,7 @@ namespace GameFormatReader.GCWii.Sound
 			Header.ID = new string(headerID);
 			Header.ByteOrderMark = br.ReadBytes(2);
 
-			Endian endianness = IsLittleEndian(Header.ByteOrderMark) ? Endian.LittleEndian : Endian.BigEndian;
+			Endian endianness = IsLittleEndian(Header.ByteOrderMark) ? Endian.Little : Endian.Big;
 			using (EndianBinaryReader reader = new EndianBinaryReader(br.BaseStream, endianness))
 			{
 				Header.MajorVersion      = reader.ReadByte();

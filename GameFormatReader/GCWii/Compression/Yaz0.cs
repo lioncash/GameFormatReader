@@ -36,7 +36,7 @@ namespace GameFormatReader.GCWii.Compression
 		/// <returns>The decoded data.</returns>
 		public static byte[] Decode(byte[] input)
 		{
-			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(input), Endian.BigEndian))
+			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(input), Endian.Big))
 			{
 				// Check if the data is even Yaz0 compressed.
 				if (new string(reader.ReadChars(4)) != "Yaz0")

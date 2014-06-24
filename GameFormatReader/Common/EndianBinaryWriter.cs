@@ -78,8 +78,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(short value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				 base.Write(value);
 			}
@@ -91,8 +91,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(ushort value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -104,8 +104,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(int value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -117,8 +117,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(uint value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -130,8 +130,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(long value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -143,8 +143,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(ulong value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -156,8 +156,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(float value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -173,8 +173,8 @@ namespace GameFormatReader.Common
 
 		public override void Write(double value)
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.LittleEndian ||
-			    !systemLittleEndian && CurrentEndian == Endian.BigEndian)
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
+			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				base.Write(value);
 			}
@@ -194,7 +194,7 @@ namespace GameFormatReader.Common
 
 		public override string ToString()
 		{
-			string endianness = (CurrentEndian == Endian.LittleEndian) ? "Little Endian" : "Big Endian";
+			string endianness = (CurrentEndian == Endian.Little) ? "Little Endian" : "Big Endian";
 
 			return string.Format("EndianBinaryWriter - Endianness: {0}", endianness);
 		}
