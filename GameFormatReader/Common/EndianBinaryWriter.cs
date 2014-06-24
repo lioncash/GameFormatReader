@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-// TODO: ReadDecimal method equivalent.
+// TODO: Write method equivalent for the decimal type.
 // How do you even go about flipping the endianness on this type?
 
 namespace GameFormatReader.Common
