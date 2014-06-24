@@ -68,6 +68,57 @@ namespace GameFormatReader.Common
 			this.CurrentEndian = endian;
 		}
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="data">Data to encapsulate</param>
+		/// <param name="endian"><see cref="Endian"/> to use when reading the data.</param>
+		public EndianBinaryReader(byte[] data, Endian endian)
+			: base (new MemoryStream(data))
+		{
+			if (data == null)
+				throw new ArgumentNullException("data");
+
+			this.CurrentEndian = endian;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="data">Data to encapsulate</param>
+		/// <param name="encoding">The <see cref="Encoding"/> to use for characters.</param>
+		/// <param name="endian"><see cref="Endian"/> to use when reading the data.</param>
+		public EndianBinaryReader(byte[] data, Encoding encoding, Endian endian)
+			: base(new MemoryStream(data), encoding)
+		{
+			if (data == null)
+				throw new ArgumentNullException("data");
+
+			if (encoding == null)
+				throw new ArgumentNullException("encoding");
+
+			this.CurrentEndian = endian;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="data">Data to encapsulate</param>
+		/// <param name="encoding">The <see cref="Encoding"/> to use for characters.</param>
+		/// <param name="leaveOpen">Whether or not to leave the stream open after this EndianBinaryReader is disposed.</param>
+		/// <param name="endian"><see cref="Endian"/> to use when reading the data.</param>
+		public EndianBinaryReader(byte[] data, Encoding encoding, bool leaveOpen, Endian endian)
+			: base(new MemoryStream(data), encoding, leaveOpen)
+		{
+			if (data == null)
+				throw new ArgumentNullException("data");
+
+			if (encoding == null)
+				throw new ArgumentNullException("encoding");
+
+			this.CurrentEndian = endian;
+		}
+
 		#endregion
 
 		#region Public Methods
