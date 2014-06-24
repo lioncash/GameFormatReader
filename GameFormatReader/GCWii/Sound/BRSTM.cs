@@ -66,6 +66,10 @@ namespace GameFormatReader.GCWii.Sound
 		/// </summary>
 		public sealed class FileHeader
 		{
+			internal FileHeader()
+			{
+			}
+
 			/// <summary>
 			/// Header ID
 			/// </summary>
@@ -142,6 +146,10 @@ namespace GameFormatReader.GCWii.Sound
 		/// </summary>
 		public sealed class HeadSection
 		{
+			internal HeadSection()
+			{
+			}
+
 			/// <summary>Section header - "HEAD"</summary>
 			public string ID { get; internal set; }
 
@@ -157,6 +165,10 @@ namespace GameFormatReader.GCWii.Sound
 		/// </summary>
 		public sealed class AdpcSection
 		{
+			internal AdpcSection()
+			{
+			}
+
 			/// <summary>Section header - "ADPC"</summary>
 			public string ID { get; internal set; }
 
@@ -172,6 +184,10 @@ namespace GameFormatReader.GCWii.Sound
 		/// </summary>
 		public sealed class DataSection
 		{
+			internal DataSection()
+			{
+			}
+
 			/// <summary>Section header - "DATA"</summary>
 			public string ID { get; internal set; }
 
