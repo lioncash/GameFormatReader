@@ -8,7 +8,7 @@ using System.Text;
 namespace GameFormatReader.Common
 {
 	/// <summary>
-	/// <see cref="BinaryWriter"/> implementation that can read in different <see cref="Endian"/> formats.
+	/// <see cref="BinaryWriter"/> implementation that can write in different <see cref="Endian"/> formats.
 	/// </summary>
 	public sealed class EndianBinaryWriter : BinaryWriter
 	{
