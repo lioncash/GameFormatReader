@@ -22,7 +22,7 @@ namespace GameFormatReader.GCWii.Sound
 				throw new ArgumentNullException("filename", "filename cannot be null.");
 
 			if (!File.Exists(filename))
-				throw new IOException(string.Format("Filename {0} does not exist.", filename));
+				throw new IOException(string.Format("File {0} does not exist.", filename));
 
 			BinaryReader br = new BinaryReader(File.OpenRead(filename));
 
