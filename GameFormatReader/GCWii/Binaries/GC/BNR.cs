@@ -21,6 +21,9 @@ namespace GameFormatReader.GCWii.Binaries.GC
 			if (filepath == null)
 				throw new ArgumentNullException("filepath", "filepath cannot be null");
 
+			if (!File.Exists(filepath))
+				throw new IOException(string.Format("File {0} does not exist.", filepath));
+
 			ReadBNR(filepath);
 		}
 

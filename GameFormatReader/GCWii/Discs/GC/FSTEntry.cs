@@ -14,6 +14,14 @@
 
 		#endregion
 
+		#region Constructor
+
+		internal FSTEntry()
+		{
+		}
+
+		#endregion
+
 		#region Properties
 
 		/// <summary>

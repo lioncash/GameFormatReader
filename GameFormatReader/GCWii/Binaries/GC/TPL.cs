@@ -31,7 +31,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 				throw new ArgumentNullException("filepath", "filepath cannot be null");
 
 			if (!File.Exists(filepath))
-				throw new ArgumentException("The file indicated by filepath does not exist", "filepath");
+				throw new IOException(string.Format("File {0} does not exist", filepath));
 
 			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.Big))
 			{
