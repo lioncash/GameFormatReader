@@ -23,7 +23,7 @@ namespace GameFormatReader.GCWii.Compression
 				throw new ArgumentNullException("filepath", "filepath cannot be null.");
 
 			if (!File.Exists(filepath))
-				throw new IOException("filepath refers to a file which doesn't exist.");
+				throw new IOException(string.Format("File {0} does not exist", filepath));
 
 			return Decode(File.ReadAllBytes(filepath));
 		}
