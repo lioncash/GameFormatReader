@@ -23,7 +23,7 @@ namespace GameFormatReader.GCWii.Compression
 				throw new ArgumentNullException("filepath", "filepath cannot be null.");
 
 			if (!File.Exists(filepath))
-				throw new IOException("filepath refers to a file which doesn't exist.");
+				throw new IOException(string.Format("File {0} does not exist", filepath));
 
 			return Decode(File.ReadAllBytes(filepath));
 		}
@@ -110,9 +110,9 @@ namespace GameFormatReader.GCWii.Compression
 				throw new ArgumentNullException("filePath", "file cannot be null");
 
 			if (!File.Exists(filePath))
-				throw new ArgumentException("File specified by filePath does not exist", "filePath");
+				throw new IOException(string.Format("File {0} does not exist", filePath));
 
-			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+			using (FileStream fs = File.OpenRead(filePath))
 			{
 				byte[] magic = new byte[4];
 				fs.Read(magic, 0, 4);
