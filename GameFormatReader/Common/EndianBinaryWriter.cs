@@ -190,6 +190,34 @@ namespace GameFormatReader.Common
 
 		#endregion
 
+		#region Custom Methods
+
+		/// <summary>
+		/// Writes a specific number of characters to the underlying 
+		/// <see cref="Stream"/>. If <paramref name="length"/> is greater
+		/// than <paramref name="str"/>'s length, the length will be
+		/// padded with zeros. Similarly, if <paramref name="length"/> is
+		/// smaller than <paramref name="str"/>'s length then the string
+		/// will be truncated.
+		/// </summary>
+		/// <param name="str">String to write to the stream.</param>
+		/// <param name="length">Maximum number of characters to write.</param>
+		public void WriteFixedString(string str, int length)
+		{
+			if (str == null)
+				throw new ArgumentNullException("str");
+
+			if (length < 0)
+				throw new ArgumentException("Cannot write a negative length string.");
+
+			for (int i = 0; i < str.Length; i++)
+			{
+				Write((i < str.Length) ? str[i] : '\0');
+			}
+		}
+
+		#endregion
+
 		#region ToString
 
 		public override string ToString()
