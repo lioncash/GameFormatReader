@@ -188,6 +188,24 @@ namespace GameFormatReader.Common
 			}
 		}
 
+        /// <summary>
+        /// Writes a specific number of characters to the underlying 
+        /// <see cref="Stream"/>. If <paramref name="length"/> is greater
+        /// than <paramref name="value"/>'s length, the length will be
+        /// padded with zeros. Similarly, if <paramref name="length"/> is
+        /// smaller than <paramref name="value"/>'s length then the string
+        /// will be truncated.
+        /// </summary>
+        /// <param name="value">String to write to stream.</param>
+        /// <param name="length">Number of characters from <paramref name="value"/> to write.</param>
+	    public void Write(string value, uint length)
+	    {
+	        for (int i = 0; i < length; i++)
+	        {
+	            Write(i < value.Length ? value[i] : 0);
+	        }
+	    }
+
 		#endregion
 
 		#region ToString
