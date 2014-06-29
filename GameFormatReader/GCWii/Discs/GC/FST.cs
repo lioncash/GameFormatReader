@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using GameFormatReader.Common;
@@ -66,7 +65,7 @@ namespace GameFormatReader.GCWii.Discs.GC
 				stringTableOffset += FSTEntry.EntrySize;
 			}
 
-			BuildFilenames(reader, 1, fileEntries.Count, null, stringTableOffset);
+			BuildFilenames(reader, 1, fileEntries.Count, "", stringTableOffset);
 		}
 
 		// Reads the string table and assigns the correct names to FST entries.
@@ -82,33 +81,17 @@ namespace GameFormatReader.GCWii.Discs.GC
 
 				// Null char is a terminator in the string table, so read until we hit it.
 				string filename = Encoding.GetEncoding("shift_jis").GetString(reader.ReadBytesUntil(0x00));
+				entry.Fullname = directory + filename;
 
 				if (entry.IsDirectory)
 				{
-					if (directory != null)
-					{
-						entry.Fullname = string.Format("{0}{1}/", directory, filename);
-					}
-					else
-					{
-						entry.Fullname = string.Format("{0}/", filename);
-					}
-
+					entry.Fullname += "/";
 					currentIndex = BuildFilenames(reader, currentIndex + 1, (int)entry.FileSize, entry.Fullname, stringTableOffset);
 				}
 				else
 				{
-					if (directory != null)
-					{
-						entry.Fullname = string.Format("{0}{1}", directory, filename);
-					}
-					else
-					{
-						entry.Fullname = string.Format("{0}", filename);
-					}
+					++currentIndex;
 				}
-
-				currentIndex++;
 			}
 
 			return currentIndex;
