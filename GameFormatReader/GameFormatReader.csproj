@@ -38,7 +38,6 @@
     <Compile Include="Common\Endian.cs" />
     <Compile Include="Common\EndianBinaryWriter.cs" />
     <Compile Include="Common\EndianUtils.cs" />
-    <Compile Include="GCWii\Archive\U8.cs" />
     <Compile Include="GCWii\Binaries\GC\BNR.cs" />
     <Compile Include="GCWii\Binaries\GC\DOL.cs" />
     <Compile Include="GCWii\Binaries\GC\RARC.cs" />
