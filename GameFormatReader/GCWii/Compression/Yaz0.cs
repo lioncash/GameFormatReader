@@ -117,14 +117,11 @@ namespace GameFormatReader.GCWii.Compression
 				byte[] magic = new byte[4];
 				fs.Read(magic, 0, 4);
 
-				if (magic[0] != 'Y' ||
-				    magic[1] != 'a' ||
-				    magic[2] != 'z' ||
-				    magic[3] != '0')
-					return false;
+				return magic[0] == 'Y' &&
+				       magic[1] == 'a' &&
+				       magic[2] == 'z' &&
+				       magic[3] == '0';
 			}
-
-			return true;
 		}
 	}
 }
