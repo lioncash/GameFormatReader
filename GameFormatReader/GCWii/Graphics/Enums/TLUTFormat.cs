@@ -1,4 +1,4 @@
-﻿namespace GameFormatReader.GCWii.Enums
+﻿namespace GameFormatReader.GCWii.Graphics.Enums
 {
 	/// <summary>
 	/// Defines possible texture lookup table formats.

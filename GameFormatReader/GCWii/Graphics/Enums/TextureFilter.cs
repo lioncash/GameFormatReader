@@ -1,4 +1,4 @@
-﻿namespace GameFormatReader.GCWii.Enums
+﻿namespace GameFormatReader.GCWii.Graphics.Enums
 {
 	/// <summary>
 	/// Represents possible texture filtering modes on the GameCube and Wii.

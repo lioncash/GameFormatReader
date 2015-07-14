@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using GameFormatReader.Common;
-using GameFormatReader.GCWii.Enums;
+using GameFormatReader.GCWii.Graphics.Enums;
 
-namespace GameFormatReader.GCWii.Binaries.GC
+namespace GameFormatReader.GCWii.Graphics
 {
 	/// <summary>
 	/// Represents a custom format that stores

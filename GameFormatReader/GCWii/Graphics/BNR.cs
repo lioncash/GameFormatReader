@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using GameFormatReader.Common;
 
-namespace GameFormatReader.GCWii.Binaries.GC
+namespace GameFormatReader.GCWii.Graphics
 {
 	/// <summary>
 	/// Banner file format
