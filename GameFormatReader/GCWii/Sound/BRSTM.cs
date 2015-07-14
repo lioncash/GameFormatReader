@@ -18,12 +18,6 @@ namespace GameFormatReader.GCWii.Sound
 		/// <param name="filename">Path to the BRSTM file to load.</param>
 		public BRSTM(string filename)
 		{
-			if (filename == null)
-				throw new ArgumentNullException("filename", "filename cannot be null.");
-
-			if (!File.Exists(filename))
-				throw new IOException(string.Format("File {0} does not exist.", filename));
-
 			BinaryReader br = new BinaryReader(File.OpenRead(filename));
 
 			char[] headerID = br.ReadChars(4);
@@ -36,7 +30,7 @@ namespace GameFormatReader.GCWii.Sound
 			Header.ByteOrderMark = br.ReadBytes(2);
 
 			Endian endianness = IsLittleEndian(Header.ByteOrderMark) ? Endian.Little : Endian.Big;
-			using (EndianBinaryReader reader = new EndianBinaryReader(br.BaseStream, endianness))
+			using (var reader = new EndianBinaryReader(br.BaseStream, endianness))
 			{
 				Header.MajorVersion      = reader.ReadByte();
 				Header.MinorVersion      = reader.ReadByte();

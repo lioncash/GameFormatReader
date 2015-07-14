@@ -18,12 +18,6 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="filepath">Path to the BNR file.</param>
 		public BNR(string filepath)
 		{
-			if (filepath == null)
-				throw new ArgumentNullException("filepath", "filepath cannot be null");
-
-			if (!File.Exists(filepath))
-				throw new IOException(string.Format("File {0} does not exist.", filepath));
-
 			ReadBNR(filepath);
 		}
 
@@ -34,12 +28,6 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="offset">Offset in the data to begin reading at.</param>
 		public BNR(byte[] data, int offset)
 		{
-			if (data == null)
-				throw new ArgumentNullException("data", "data cannot be null");
-
-			if (offset < 0)
-				throw new ArgumentException("offset cannot be a negative number", "offset");
-
 			ReadBNR(data, offset);
 		}
 
@@ -155,9 +143,9 @@ namespace GameFormatReader.GCWii.Graphics
 		// Buffer-based reading
 		private void ReadBNR(byte[] data, int offset)
 		{
-			MemoryStream ms = new MemoryStream(data, offset, data.Length);
+			var ms = new MemoryStream(data, offset, data.Length);
 
-			using (EndianBinaryReader reader = new EndianBinaryReader(ms, Endian.Big))
+			using (var reader = new EndianBinaryReader(ms, Endian.Big))
 			{
 				string magicWord = new string(reader.ReadChars(4));
 				BannerType = (magicWord == "BNR1") ? BNRType.BNR1 : BNRType.BNR2;

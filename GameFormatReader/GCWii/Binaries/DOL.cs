@@ -17,12 +17,6 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		/// <param name="filepath">Path to the DOL file.</param>
 		public DOL(string filepath)
 		{
-			if (filepath == null)
-				throw new ArgumentNullException("filepath", "filepath cannot be null");
-
-			if (!File.Exists(filepath))
-				throw new IOException(string.Format("File {0} does not exist.", filepath));
-
 			ReadDOL(filepath);
 		}
 
@@ -33,12 +27,6 @@ namespace GameFormatReader.GCWii.Binaries.GC
 		/// <param name="offset">Offset in the data to begin reading at.</param>
 		public DOL(byte[] data, int offset)
 		{
-			if (data == null)
-				throw new ArgumentNullException("data", "data cannot be null");
-
-			if (offset < 0)
-				throw new ArgumentException("offset cannot be less than zero", "offset");
-
 			ReadDOL(data, offset);
 		}
 
@@ -121,7 +109,7 @@ namespace GameFormatReader.GCWii.Binaries.GC
 
 		private void ReadDOL(byte[] data, int offset)
 		{
-			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
+			using (var reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
 			{
 				InitializeTextSections(reader);
 				InitializeDataSections(reader);

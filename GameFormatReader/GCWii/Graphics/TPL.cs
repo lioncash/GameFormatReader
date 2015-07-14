@@ -27,13 +27,7 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="filepath">Path to the TPL file.</param>
 		public TPL(string filepath)
 		{
-			if (filepath == null)
-				throw new ArgumentNullException("filepath", "filepath cannot be null");
-
-			if (!File.Exists(filepath))
-				throw new IOException(string.Format("File {0} does not exist", filepath));
-
-			using (EndianBinaryReader reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.Big))
+			using (var reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.Big))
 			{
 				ReadHeader(reader);
 				ReadTextures(reader);

@@ -19,12 +19,6 @@ namespace GameFormatReader.GCWii.Compression
 		/// <returns>the decoded data.</returns>
 		public static byte[] Decode(string filepath)
 		{
-			if (filepath == null)
-				throw new ArgumentNullException("filepath", "filepath cannot be null.");
-
-			if (!File.Exists(filepath))
-				throw new IOException(string.Format("File {0} does not exist", filepath));
-
 			return Decode(File.ReadAllBytes(filepath));
 		}
 
@@ -36,7 +30,7 @@ namespace GameFormatReader.GCWii.Compression
 		/// <returns>The decoded data.</returns>
 		public static byte[] Decode(byte[] input)
 		{
-			using (EndianBinaryReader reader = new EndianBinaryReader(new MemoryStream(input), Endian.Big))
+			using (var reader = new EndianBinaryReader(new MemoryStream(input), Endian.Big))
 			{
 				// Check if the data is even Yaz0 compressed.
 				if (new string(reader.ReadChars(4)) != "Yaz0")
@@ -100,19 +94,13 @@ namespace GameFormatReader.GCWii.Compression
 		}
 
 		/// <summary>
-		/// Checkes if a given file is Yaz0-compressed.
+		/// Checks if a given file is Yaz0-compressed.
 		/// </summary>
 		/// <param name="filePath">Path to the file to check.</param>
 		/// <returns>true if the file is Yaz0-compressed; false otherwise.</returns>
 		public static bool IsYaz0Compressed(string filePath)
 		{
-			if (filePath == null)
-				throw new ArgumentNullException("filePath", "file cannot be null");
-
-			if (!File.Exists(filePath))
-				throw new IOException(string.Format("File {0} does not exist", filePath));
-
-			using (FileStream fs = File.OpenRead(filePath))
+			using (var fs = File.OpenRead(filePath))
 			{
 				byte[] magic = new byte[4];
 				fs.Read(magic, 0, 4);
