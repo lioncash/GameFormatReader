@@ -16,14 +16,22 @@ namespace GameFormatReader.GCWii.Sound
 		/// Constructor
 		/// </summary>
 		/// <param name="filename">Path to the BRSTM file to load.</param>
-		public BRSTM(string filename)
+		public BRSTM(string filename) : this(File.ReadAllBytes(filename))
 		{
-			BinaryReader br = new BinaryReader(File.OpenRead(filename));
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="data">Byte array containing BRSTM data.</param>
+		public BRSTM(byte[] data)
+		{
+			BinaryReader br = new BinaryReader(new MemoryStream(data));
 
 			char[] headerID = br.ReadChars(4);
 
 			if (!IsValidHeader(headerID))
-				throw new IOException(string.Format("Cannot read BRSTM file {0}. Incorrect header ID", filename));
+				throw new ArgumentException("Cannot read BRSTM file. Incorrect header ID", "data");
 
 			Header = new FileHeader();
 			Header.ID = new string(headerID);
