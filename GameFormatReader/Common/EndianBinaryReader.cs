@@ -42,7 +42,7 @@ namespace GameFormatReader.Common
 		/// <param name="endian">The <see cref="Endian"/> to use when reading files..</param>
 		public EndianBinaryReader(Stream stream, Endian endian) : base(stream)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -53,7 +53,7 @@ namespace GameFormatReader.Common
 		/// <param name="endian">The <see cref="Endian"/> to use when reading files.</param>
 		public EndianBinaryReader(Stream stream, Encoding encoding, Endian endian) : base(stream, encoding)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace GameFormatReader.Common
 		/// <param name="endian">The <see cref="Endian"/> to use when reading from files.</param>
 		public EndianBinaryReader(Stream stream, Encoding encoding, bool leaveOpen, Endian endian) : base (stream, encoding, leaveOpen)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -76,10 +76,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryReader(byte[] data, Endian endian)
 			: base (new MemoryStream(data))
 		{
-			if (data == null)
-				throw new ArgumentNullException("data");
-
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -91,13 +88,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryReader(byte[] data, Encoding encoding, Endian endian)
 			: base(new MemoryStream(data), encoding)
 		{
-			if (data == null)
-				throw new ArgumentNullException("data");
-
-			if (encoding == null)
-				throw new ArgumentNullException("encoding");
-
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -110,13 +101,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryReader(byte[] data, Encoding encoding, bool leaveOpen, Endian endian)
 			: base(new MemoryStream(data), encoding, leaveOpen)
 		{
-			if (data == null)
-				throw new ArgumentNullException("data");
-
-			if (encoding == null)
-				throw new ArgumentNullException("encoding");
-
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		#endregion
@@ -127,15 +112,14 @@ namespace GameFormatReader.Common
 
 		public override short ReadInt16()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.Little || 
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
 			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadInt16();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadInt16().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadInt16().SwapBytes();
 		}
 
 		public override ushort ReadUInt16()
@@ -145,23 +129,21 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadUInt16();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadUInt16().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadUInt16().SwapBytes();
 		}
 
 		public override int ReadInt32()
 		{
-			if (systemLittleEndian && CurrentEndian == Endian.Little||
+			if (systemLittleEndian && CurrentEndian == Endian.Little ||
 			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
 				return base.ReadInt32();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadInt32().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadInt32().SwapBytes();
 		}
 
 		public override uint ReadUInt32()
@@ -171,10 +153,9 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadUInt32();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadUInt32().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadUInt32().SwapBytes();
 		}
 
 		public override long ReadInt64()
@@ -184,10 +165,9 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadInt64();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadInt64().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadInt64().SwapBytes();
 		}
 
 		public override ulong ReadUInt64()
@@ -197,10 +177,9 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadUInt64();
 			}
-			else // BE to LE or LE to BE
-			{
-				return base.ReadUInt64().SwapBytes();
-			}
+
+			// BE to LE or LE to BE
+			return base.ReadUInt64().SwapBytes();
 		}
 
 		public override float ReadSingle()
@@ -210,16 +189,14 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadSingle();
 			}
-			else // BE to LE or LE to BE
-			{
-				float temp = base.ReadSingle();
+			
+			// BE to LE or LE to BE
+			float temp = base.ReadSingle();
 
-				// TODO: Is there a better way?
-				byte[] floatBytes = BitConverter.GetBytes(temp);
-				Array.Reverse(floatBytes);
+			byte[] floatBytes = BitConverter.GetBytes(temp);
+			Array.Reverse(floatBytes);
 
-				return BitConverter.ToSingle(floatBytes, 0);
-			}
+			return BitConverter.ToSingle(floatBytes, 0);
 		}
 
 		public override double ReadDouble()
@@ -229,16 +206,14 @@ namespace GameFormatReader.Common
 			{
 				return base.ReadDouble();
 			}
-			else // BE to LE or LE to BE
-			{
-				double temp = base.ReadDouble();
+			
+			// BE to LE or LE to BE
+			double temp = base.ReadDouble();
 
-				// TODO: Is there a better way?
-				byte[] doubleBytes = BitConverter.GetBytes(temp);
-				Array.Reverse(doubleBytes);
+			byte[] doubleBytes = BitConverter.GetBytes(temp);
+			Array.Reverse(doubleBytes);
 
-				return BitConverter.ToDouble(doubleBytes, 0);
-			}
+			return BitConverter.ToDouble(doubleBytes, 0);
 		}
 
 		#endregion

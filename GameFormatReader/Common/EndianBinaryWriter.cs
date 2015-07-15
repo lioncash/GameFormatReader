@@ -42,7 +42,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryWriter(Stream stream, Endian endian)
 			: base(stream)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -54,7 +54,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryWriter(Stream stream, Encoding encoding, Endian endian)
 			: base(stream, encoding)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace GameFormatReader.Common
 		public EndianBinaryWriter(Stream stream, Encoding encoding, bool leaveOpen, Endian endian)
 			: base(stream, encoding, leaveOpen)
 		{
-			this.CurrentEndian = endian;
+			CurrentEndian = endian;
 		}
 
 		#endregion
@@ -81,7 +81,7 @@ namespace GameFormatReader.Common
 			if (systemLittleEndian && CurrentEndian == Endian.Little ||
 			    !systemLittleEndian && CurrentEndian == Endian.Big)
 			{
-				 base.Write(value);
+				base.Write(value);
 			}
 			else // BE to LE or LE to BE
 			{
@@ -163,7 +163,6 @@ namespace GameFormatReader.Common
 			}
 			else // BE to LE or LE to BE
 			{
-				// TODO: Is there a better way?
 				byte[] floatBytes = BitConverter.GetBytes(value);
 				Array.Reverse(floatBytes);
 
@@ -180,7 +179,6 @@ namespace GameFormatReader.Common
 			}
 			else // BE to LE or LE to BE
 			{
-				// TODO: Is there a better way?
 				byte[] doubleBytes = BitConverter.GetBytes(value);
 				Array.Reverse(doubleBytes);
 
