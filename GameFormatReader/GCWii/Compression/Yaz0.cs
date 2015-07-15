@@ -5,7 +5,7 @@ using GameFormatReader.Common;
 namespace GameFormatReader.GCWii.Compression
 {
 	/// <summary>
-	/// Class for decoding the Yaz0 compression format.
+	/// Yaz0 compression format utility functions.
 	/// </summary>
 	public static class Yaz0
 	{
