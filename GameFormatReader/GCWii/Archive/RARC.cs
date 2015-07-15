@@ -7,7 +7,7 @@ using GameFormatReader.Common;
 //       As it is now, files would have to be pulled manually,
 //       which isn't convenient at all.
 
-namespace GameFormatReader.GCWii.Binaries.GC
+namespace GameFormatReader.GCWii.Archive
 {
 	/// <summary>
 	/// Represents a RARC archive file.

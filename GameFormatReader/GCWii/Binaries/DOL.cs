@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using GameFormatReader.Common;
 
-namespace GameFormatReader.GCWii.Binaries.GC
+namespace GameFormatReader.GCWii.Binaries
 {
 	/// <summary>
 	/// Represents a GameCube executable.
