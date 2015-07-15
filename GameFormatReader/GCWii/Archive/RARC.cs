@@ -54,12 +54,12 @@ namespace GameFormatReader.GCWii.Archive
 
 		#endregion
 
-		#region Structs
+		#region Classes
 
 		/// <summary>
 		/// Represents a directory within the RARC archive.
 		/// </summary>
-		public struct Node
+		public sealed class Node
 		{
 			/// <summary>4-character string describing the node's type.</summary>
 			public string Type          { get; internal set; }
@@ -76,7 +76,7 @@ namespace GameFormatReader.GCWii.Archive
 		/// <summary>
 		/// Represents a file or subdirectory within a RARC archive.
 		/// </summary>
-		public struct FileEntry
+		public sealed class FileEntry
 		{
 			/// <summary>File ID. If 0xFFFF, then this entry is a subdirectory link.</summary>
 			public ushort ID            { get; internal set; }
