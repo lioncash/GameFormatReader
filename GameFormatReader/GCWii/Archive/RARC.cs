@@ -71,6 +71,11 @@ namespace GameFormatReader.GCWii.Archive
 			public uint FirstFileOffset { get; internal set; }
 			/// <summary>The entries within this Node.</summary>
 			public FileEntry[] Entries  { get; internal set; }
+
+			public override string ToString()
+			{
+				return Name;
+			}
 		}
 
 		/// <summary>
@@ -99,6 +104,11 @@ namespace GameFormatReader.GCWii.Archive
 			public bool IsDirectory  { get; internal set; }
 			/// <summary>Node index representing the subdirectory. Will only be non-zero if IsDirectory is true.</summary>
 			public uint SubDirIndex  { get; internal set; }
+
+			public override string ToString()
+			{
+				return Name;
+			}
 		}
 
 		#endregion
