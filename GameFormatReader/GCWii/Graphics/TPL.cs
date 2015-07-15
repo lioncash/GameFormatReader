@@ -54,7 +54,7 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <summary>
 		/// Represents an embedded texture
 		/// </summary>
-		public struct Texture
+		public sealed class Texture
 		{
 			/// <summary>Height of this texture in pixels.</summary>
 			public int Height { get; internal set; }
