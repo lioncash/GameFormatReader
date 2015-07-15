@@ -65,8 +65,8 @@ namespace GameFormatReader.GCWii.Archive
 			public string Type          { get; internal set; }
 			/// <summary>Directory name's offset within the string table.</summary>
 			public string Name          { get; internal set; }
-			/// <summary>Unknown value. Here for padding (and full documentation).</summary>
-			public ushort Unknown       { get; internal set; }
+			/// <summary>Hash of the <see cref="Name"/> field.</summary>
+			public ushort NameHashcode  { get; internal set; }
 			/// <summary>The offset for the first file in this node.</summary>
 			public uint FirstFileOffset { get; internal set; }
 			/// <summary>The entries within this Node.</summary>
@@ -79,22 +79,24 @@ namespace GameFormatReader.GCWii.Archive
 		public struct FileEntry
 		{
 			/// <summary>File ID. If 0xFFFF, then this entry is a subdirectory link.</summary>
-			public ushort ID        { get; internal set; }
-			/// <summary>Unknown value</summary>
-			public ushort Unknown1  { get; internal set; }
-			/// <summary>Unknown value</summary>
-			public ushort Unknown2  { get; internal set; }
+			public ushort ID            { get; internal set; }
+			/// <summary>String hash of the <see cref="Name"/> field.</summary>
+			public ushort NameHashcode  { get; internal set; }
+			/// <summary>Type of entry. 0x2 = Directory, 0x11 = File.</summary>
+			public byte Type            { get; internal set; }
+			/// <summary>Padding byte. Included here for the sake of documentation. </summary>
+			public byte Padding         { get; internal set; }
 			/// <summary>File/subdirectory name string table offset.</summary>
-			public string Name      { get; internal set; }
+			public string Name          { get; internal set; }
 			/// <summary>Data bytes. If this entry is a directory, it will be the node index.</summary>
-			public byte[] Data      { get; internal set; }
+			public byte[] Data          { get; internal set; }
 			/// <summary>Always zero.</summary>
-			public uint ZeroPadding { get; internal set; }
+			public uint ZeroPadding     { get; internal set; }
 
 			// Non actual struct items
 
 			/// <summary>Whether or not this entry is a directory.</summary>
-			public bool IsDirectory { get; internal set; }
+			public bool IsDirectory  { get; internal set; }
 			/// <summary>Node index representing the subdirectory. Will only be non-zero if IsDirectory is true.</summary>
 			public uint SubDirIndex  { get; internal set; }
 		}
@@ -204,7 +206,7 @@ namespace GameFormatReader.GCWii.Archive
 				Nodes[i]                 = new Node();
 				Nodes[i].Type            = new string(reader.ReadChars(4));
 				Nodes[i].Name            = ReadString(reader, reader.ReadUInt32());
-				Nodes[i].Unknown         = reader.ReadUInt16();
+				Nodes[i].NameHashcode    = reader.ReadUInt16();
 				Nodes[i].Entries         = new FileEntry[reader.ReadUInt16()];
 				Nodes[i].FirstFileOffset = reader.ReadUInt32();
 			}
@@ -217,11 +219,12 @@ namespace GameFormatReader.GCWii.Archive
 					// Find the entry position
 					reader.BaseStream.Position = FileEntryOffset + ((node.FirstFileOffset + i) * FileEntrySize);
 
-					node.Entries[i]             = new FileEntry();
-					node.Entries[i].ID          = reader.ReadUInt16();
-					node.Entries[i].Unknown1    = reader.ReadUInt16();
-					node.Entries[i].Unknown2    = reader.ReadUInt16();
-					node.Entries[i].Name        = ReadString(reader, reader.ReadUInt16());
+					node.Entries[i]                 = new FileEntry();
+					node.Entries[i].ID              = reader.ReadUInt16();
+					node.Entries[i].NameHashcode    = reader.ReadUInt16();
+					node.Entries[i].Type            = reader.ReadByte();
+					node.Entries[i].Padding         = reader.ReadByte();
+					node.Entries[i].Name            = ReadString(reader, reader.ReadUInt16());
 					node.Entries[i].IsDirectory = (node.Entries[i].ID == 0xFFFF);
 
 					uint entryDataOffset = reader.ReadUInt32();
