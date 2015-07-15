@@ -39,6 +39,19 @@ namespace GameFormatReader.GCWii.Archive
 			}
 		}
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="data">Byte array containing RARC data.</param>
+		public RARC(byte[] data)
+		{
+			using (var reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
+			{
+				ReadHeader(reader);
+				ReadNodes(reader);
+			}
+		}
+
 		#endregion
 
 		#region Structs
