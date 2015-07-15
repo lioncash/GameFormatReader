@@ -63,7 +63,7 @@ namespace GameFormatReader.GCWii.Archive
 		{
 			/// <summary>4-character string describing the node's type.</summary>
 			public string Type          { get; internal set; }
-			/// <summary>Directory name's offset within the string table.</summary>
+			/// <summary>Directory's name.</summary>
 			public string Name          { get; internal set; }
 			/// <summary>Hash of the <see cref="Name"/> field.</summary>
 			public ushort NameHashcode  { get; internal set; }
@@ -86,7 +86,7 @@ namespace GameFormatReader.GCWii.Archive
 			public byte Type            { get; internal set; }
 			/// <summary>Padding byte. Included here for the sake of documentation. </summary>
 			public byte Padding         { get; internal set; }
-			/// <summary>File/subdirectory name string table offset.</summary>
+			/// <summary>File/subdirectory name.</summary>
 			public string Name          { get; internal set; }
 			/// <summary>Data bytes. If this entry is a directory, it will be the node index.</summary>
 			public byte[] Data          { get; internal set; }
@@ -219,13 +219,13 @@ namespace GameFormatReader.GCWii.Archive
 					// Find the entry position
 					reader.BaseStream.Position = FileEntryOffset + ((node.FirstFileOffset + i) * FileEntrySize);
 
-					node.Entries[i]                 = new FileEntry();
-					node.Entries[i].ID              = reader.ReadUInt16();
-					node.Entries[i].NameHashcode    = reader.ReadUInt16();
-					node.Entries[i].Type            = reader.ReadByte();
-					node.Entries[i].Padding         = reader.ReadByte();
-					node.Entries[i].Name            = ReadString(reader, reader.ReadUInt16());
-					node.Entries[i].IsDirectory = (node.Entries[i].ID == 0xFFFF);
+					node.Entries[i]              = new FileEntry();
+					node.Entries[i].ID           = reader.ReadUInt16();
+					node.Entries[i].NameHashcode = reader.ReadUInt16();
+					node.Entries[i].Type         = reader.ReadByte();
+					node.Entries[i].Padding      = reader.ReadByte();
+					node.Entries[i].Name         = ReadString(reader, reader.ReadUInt16());
+					node.Entries[i].IsDirectory  = (node.Entries[i].ID == 0xFFFF);
 
 					uint entryDataOffset = reader.ReadUInt32();
 					uint dataSize        = reader.ReadUInt32();
