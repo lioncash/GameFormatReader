@@ -72,6 +72,9 @@ namespace GameFormatReader.GCWii.Archive
 			/// <para></para>
 			/// For Directories, this is the last file number.
 			/// </summary>
+			/// <remarks>
+			/// This is a 24-bit number encoded within a 32-bit space.
+			/// </remarks>
 			public int Size { get; private set; }
 
 			/// <summary>
@@ -87,7 +90,7 @@ namespace GameFormatReader.GCWii.Archive
 				NameOffset = reader.ReadUInt16();
 
 				var dataOffset = reader.ReadUInt32();
-				Size = reader.ReadInt32();
+				Size = reader.ReadInt32() & 0x00FFFFFF;
 
 				Data = reader.ReadBytesAt(dataOffset, Size);
 			}
