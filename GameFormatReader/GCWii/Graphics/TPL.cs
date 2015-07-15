@@ -34,6 +34,19 @@ namespace GameFormatReader.GCWii.Graphics
 			}
 		}
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="data">Byte array containing TPL data.</param>
+		public TPL(byte[] data)
+		{
+			using (var reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
+			{
+				ReadHeader(reader);
+				ReadTextures(reader);
+			}
+		}
+
 		#endregion
 
 		#region Structs
