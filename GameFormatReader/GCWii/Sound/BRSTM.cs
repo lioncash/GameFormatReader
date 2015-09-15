@@ -26,12 +26,15 @@ namespace GameFormatReader.GCWii.Sound
 		/// <param name="data">Byte array containing BRSTM data.</param>
 		public BRSTM(byte[] data)
 		{
+			if (data == null)
+				throw new ArgumentNullException(nameof(data));
+
 			BinaryReader br = new BinaryReader(new MemoryStream(data));
 
 			char[] headerID = br.ReadChars(4);
 
 			if (!IsValidHeader(headerID))
-				throw new ArgumentException("Cannot read BRSTM file. Incorrect header ID", "data");
+				throw new ArgumentException("Cannot read BRSTM file. Incorrect header ID", nameof(data));
 
 			Header = new FileHeader();
 			Header.ID = new string(headerID);
@@ -294,10 +297,10 @@ namespace GameFormatReader.GCWii.Sound
 		private static bool IsValidHeader(char[] data)
 		{
 			if (data == null)
-				throw new ArgumentNullException("data", "data cannot be null.");
+				throw new ArgumentNullException(nameof(data));
 
 			if (data.Length < 4)
-				throw new ArgumentException("Invalid header magic, data too small.", "data");
+				throw new ArgumentException("Invalid header magic, data too small.", nameof(data));
 
 			return data[0] == 'R' &&
 			       data[1] == 'S' &&
@@ -308,10 +311,10 @@ namespace GameFormatReader.GCWii.Sound
 		private static bool IsLittleEndian(byte[] data)
 		{
 			if (data == null)
-				throw new ArgumentNullException("data", "Byte order mark data cannot be null");
+				throw new ArgumentNullException(nameof(data));
 
 			if (data.Length < 2)
-				throw new ArgumentException("Byte order mark data cannot be less than 2 bytes in size.", "data");
+				throw new ArgumentException("Byte order mark data cannot be less than 2 bytes in size.", nameof(data));
 
 			return data[0] == 0xFF &&
 			       data[1] == 0xFE;
