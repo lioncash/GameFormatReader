@@ -27,6 +27,12 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="filepath">Path to the TPL file.</param>
 		public TPL(string filepath)
 		{
+			if (filepath == null)
+				throw new ArgumentNullException(nameof(filepath));
+
+			if (!File.Exists(filepath))
+				throw new FileNotFoundException($"File {filepath} does not exist.", filepath);
+
 			using (var reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.Big))
 			{
 				ReadHeader(reader);
@@ -40,6 +46,9 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="data">Byte array containing TPL data.</param>
 		public TPL(byte[] data)
 		{
+			if (data == null)
+				throw new ArgumentNullException(nameof(data));
+
 			using (var reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
 			{
 				ReadHeader(reader);
@@ -136,7 +145,7 @@ namespace GameFormatReader.GCWii.Graphics
 			int headerSize = reader.ReadInt32();
 
 			if (headerSize != CorrectHeaderSize)
-				throw new IOException(string.Format("Incorrect TPL header size. Should be {0}, was {1}", CorrectHeaderSize, headerSize));
+				throw new IOException($"Incorrect TPL header size. Should be {CorrectHeaderSize}, was {headerSize}");
 		}
 
 		private void ReadTextures(EndianBinaryReader reader)
@@ -186,10 +195,10 @@ namespace GameFormatReader.GCWii.Graphics
 		private int GetTextureDataSize(int i)
 		{
 			if (i < 0)
-				throw new ArgumentException("i cannot be less than zero", "i");
+				throw new ArgumentException($"{nameof(i)} cannot be less than zero", nameof(i));
 
 			if (i >= Textures.Length)
-				throw new ArgumentException("i cannot be larger than the total number of textures", "i");
+				throw new ArgumentException($"{nameof(i)} cannot be larger than the total number of textures", nameof(i));
 
 			int size = 0;
 
