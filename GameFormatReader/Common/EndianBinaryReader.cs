@@ -369,7 +369,7 @@ namespace GameFormatReader.Common
 		public byte[] PeekReadBytes(int count)
 		{
 			if (count < 0)
-				throw new ArgumentException("count cannot be negative", nameof(count));
+				throw new ArgumentException($"{nameof(count)} cannot be negative", nameof(count));
 
 			byte[] res = ReadBytes(count);
 
@@ -792,7 +792,7 @@ namespace GameFormatReader.Common
 		public void Skip(long count)
 		{
 			if (count >= BaseStream.Length)
-				throw new ArgumentException("count cannot be larger than the length of the underlying stream.", nameof(count));
+				throw new ArgumentException($"{nameof(count)} cannot be larger than the length of the underlying stream.", nameof(count));
 
 			if ((BaseStream.Position + count) >= BaseStream.Length)
 				throw new ArgumentException("Skipping " + count + " bytes would exceed the underlying stream's length.");
