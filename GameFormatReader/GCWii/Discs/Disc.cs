@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace GameFormatReader.GCWii.Discs
 {
@@ -16,7 +17,10 @@ namespace GameFormatReader.GCWii.Discs
 		protected Disc(string filepath)
 		{
 			if (filepath == null)
-				throw new ArgumentNullException("filepath", "filepath cannot be null");
+				throw new ArgumentNullException(nameof(filepath));
+
+			if (!File.Exists(filepath))
+				throw new FileNotFoundException($"File {filepath} does not exist.", filepath);
 		}
 
 		#endregion
