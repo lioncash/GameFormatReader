@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using GameFormatReader.Common;
 
 namespace GameFormatReader.GCWii.Binaries
@@ -16,6 +17,12 @@ namespace GameFormatReader.GCWii.Binaries
 		/// <param name="filepath">Path to the DOL file.</param>
 		public DOL(string filepath)
 		{
+			if (filepath == null)
+				throw new ArgumentNullException(nameof(filepath));
+
+			if (!File.Exists(filepath))
+				throw new FileNotFoundException($"File {filepath} does not exist.", filepath);
+
 			ReadDOL(filepath);
 		}
 
@@ -26,6 +33,15 @@ namespace GameFormatReader.GCWii.Binaries
 		/// <param name="offset">Offset in the data to begin reading at.</param>
 		public DOL(byte[] data, int offset)
 		{
+			if (data == null)
+				throw new ArgumentNullException(nameof(data));
+
+			if (offset < 0)
+				throw new ArgumentOutOfRangeException(nameof(offset), $"{nameof(offset)} cannot be less than zero.");
+
+			if (offset >= data.Length)
+				throw new ArgumentOutOfRangeException(nameof(offset), $"{nameof(offset)} cannot be larger than the given data.");
+
 			ReadDOL(data, offset);
 		}
 
