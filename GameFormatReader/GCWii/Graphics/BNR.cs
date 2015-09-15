@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using GameFormatReader.Common;
 
@@ -17,6 +18,12 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="filepath">Path to the BNR file.</param>
 		public BNR(string filepath)
 		{
+			if (filepath == null)
+				throw new ArgumentNullException(nameof(filepath));
+
+			if (!File.Exists(filepath))
+				throw new FileNotFoundException($"File {filepath} does not exist.", filepath);
+
 			ReadBNR(filepath);
 		}
 
@@ -27,6 +34,15 @@ namespace GameFormatReader.GCWii.Graphics
 		/// <param name="offset">Offset in the data to begin reading at.</param>
 		public BNR(byte[] data, int offset)
 		{
+			if (data == null)
+				throw new ArgumentNullException(nameof(data));
+
+			if (offset < 0)
+				throw new ArgumentOutOfRangeException(nameof(offset), $"{nameof(offset)} cannot be less than zero.");
+
+			if (offset >= data.Length)
+				throw new ArgumentOutOfRangeException(nameof(offset), $"{nameof(offset)} cannot be greater than the given data's size.");
+
 			ReadBNR(data, offset);
 		}
 
