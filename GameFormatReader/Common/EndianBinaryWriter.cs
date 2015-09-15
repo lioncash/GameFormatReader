@@ -203,7 +203,7 @@ namespace GameFormatReader.Common
 		public void WriteFixedString(string str, int length)
 		{
 			if (str == null)
-				throw new ArgumentNullException("str");
+				throw new ArgumentNullException(nameof(str));
 
 			if (length < 0)
 				throw new ArgumentException("Cannot write a negative length string.");
@@ -222,7 +222,7 @@ namespace GameFormatReader.Common
 		{
 			string endianness = (CurrentEndian == Endian.Little) ? "Little Endian" : "Big Endian";
 
-			return string.Format("EndianBinaryWriter - Endianness: {0}", endianness);
+			return $"EndianBinaryWriter - Endianness: {endianness}";
 		}
 
 		#endregion
