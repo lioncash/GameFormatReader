@@ -32,6 +32,12 @@ namespace GameFormatReader.GCWii.Archive
 		/// <param name="filepath">Path to a RARC archive file.</param>
 		public RARC(string filepath)
 		{
+			if (filepath == null)
+				throw new ArgumentNullException(nameof(filepath));
+
+			if (!File.Exists(filepath))
+				throw new FileNotFoundException($"Unable to find file: {filepath}", filepath);
+
 			using (var reader = new EndianBinaryReader(File.OpenRead(filepath), Endian.Big))
 			{
 				ReadHeader(reader);
@@ -45,6 +51,9 @@ namespace GameFormatReader.GCWii.Archive
 		/// <param name="data">Byte array containing RARC data.</param>
 		public RARC(byte[] data)
 		{
+			if (data == null)
+				throw new ArgumentNullException(nameof(data));
+
 			using (var reader = new EndianBinaryReader(new MemoryStream(data), Endian.Big))
 			{
 				ReadHeader(reader);
